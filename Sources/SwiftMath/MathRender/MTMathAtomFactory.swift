@@ -337,6 +337,11 @@ public class MTMathAtomFactory {
         "bigotimes" : MTMathAtomFactory.operatorWithName( "\u{2A02}", limits: true),
         "biguplus" : MTMathAtomFactory.operatorWithName( "\u{2A04}", limits: true),
         "bigsqcup" : MTMathAtomFactory.operatorWithName( "\u{2A06}", limits: true),
+        
+        // zhy: 添加的数学扩展
+        "iiint" : MTMathAtomFactory.operatorWithName( "\u{222D}", limits: false),
+        "mod" : MTMathAtomFactory.operatorWithName( "mod", limits: true),
+        "triangleleft" : MTMathAtom(type: .ordinary, value: "\u{25C3}"),
 
         // Latex command characters
         "{" : MTMathAtom(type: .open, value: "{"),
@@ -893,13 +898,14 @@ public class MTMathAtomFactory {
                 
                 return table
             } else if env == "cases" {
-                if table.numColumns != 2 {
-                    let message = "cases environment can only have 2 columns"
-                    if error == nil {
-                        error = NSError(domain: MTParseError, code: MTParseErrors.invalidNumColumns.rawValue, userInfo: [NSLocalizedDescriptionKey:message])
-                    }
-                    return nil
-                }
+                // zhy: 这里暂时不限制列数，因为cases环境可以有任意多的列
+//                if table.numColumns != 2 {
+//                    let message = "cases environment can only have 2 columns"
+//                    if error == nil {
+//                        error = NSError(domain: MTParseError, code: MTParseErrors.invalidNumColumns.rawValue, userInfo: [NSLocalizedDescriptionKey:message])
+//                    }
+//                    return nil
+//                }
                 
                 table.interRowAdditionalSpacing = 0
                 table.interColumnSpacing = 18
